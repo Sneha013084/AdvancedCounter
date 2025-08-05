@@ -1,69 +1,36 @@
-# React + TypeScript + Vite
+ Initialize State with useState
+ Count : Initializes count from localStorage (if present) or sets it to 0.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Number(stored) converts the string from localStorage to a number
 
-Currently, two official plugins are available:
+History: Tracks all the previous count values, starting from 0.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Key Pressed: Used to display which key was last pressed (ArrowUp or ArrowDown).
 
-## Expanding the ESLint configuration
+Step Value: Allows the user to control how much the counter should increase or decrease.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Save Count to localStorage: Automatically saves the count value whenever it changes.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+ Update Count & History Function: Central function that updates both the count and its history.
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+Ensures consistency across manual button clicks and key presses.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Increment & Decrement Function: Uses the step value to change the count.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Avoids hardcoding +1 or -1.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+ Handle Keyboard Events with useEffect: Adds keyboard support for changing the count.
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Cleans up the listeners to prevent memory leaks.
+
+ Reset Button : Resets both count and history.
+
+
+  Input for Step Value: Allows the user to enter a custom increment/decrement value.
+
+Defaults to 1 if input is empty or invalid (NaN).
+
+
+Rendered Output: Shows current count and key pressed.
+
+Shows input for step value and buttons to interact.
